@@ -12,6 +12,6 @@ description: "Use when adding or changing a meeting-cost calculation rule, espec
 5. Considere duração zero, negativa, fracionária, não finita e custo zero ou negativo.
 6. Preserve a rejeição de `NaN`, infinitos e resultados não finitos.
 7. Edite somente a validação ou fórmula necessária, sem introduzir dependências.
-8. Execute um caso válido com `npm start -- 5 60 80` e confira `400,00`.
-9. Execute casos inválidos representativos com `node src/cli.js` e confirme erro e código 1.
-10. Revise o diff e registre a ausência de suíte automatizada, lint e typecheck.
+8. Adicione ou ajuste testes para cobrir a regra alterada e seus limites relevantes.
+9. Execute as verificações descritas em `.agents/workflows/verify.md`.
+10. Revise o diff e confirme que não há alterações fora do escopo.

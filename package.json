@@ -4,6 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/cli.js"
+    "start": "node src/cli.js",
+    "test": "node --test",
+    "lint": "biome lint src test biome.json tsconfig.json package.json",
+    "format": "biome format --write src test biome.json tsconfig.json package.json",
+    "typecheck": "tsc --project tsconfig.json",
+    "check": "npm run lint && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.3",
+    "@types/node": "24.13.3",
+    "typescript": "5.9.3"
   }
 }

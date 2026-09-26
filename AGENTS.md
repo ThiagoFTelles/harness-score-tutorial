@@ -10,20 +10,24 @@
 
 ## Estrutura Real
 
-- Raiz: `package.json`, `README.md`, `PROJETO.md`, `LICENSE` e `AGENTS.md`.
+- Raiz: `package.json`, `package-lock.json`, `tsconfig.json`, `biome.json`, `README.md`, `PROJETO.md`, `LICENSE` e `AGENTS.md`.
 - `src/domain.js`: exporta a função pura `calculateMeetingCost`.
 - `src/cli.js`: lê `process.argv`, converte argumentos, chama o domínio e escreve no terminal.
-- Não presuma testes, lint, formatter, typecheck, build, CI, hooks, MCP ou outros diretórios.
+- `test/domain.test.js`: cobre o cálculo e suas validações usando o test runner nativo do Node.js.
+- `.github/workflows/ci.yml`: executa as verificações em pushes para `main` e pull requests.
+- `.agents/workflows/verify.md`: descreve o fluxo local de verificação.
 
 ## Comandos E Módulos
 
-- O único script é `start`: `npm start -- <participantes> <duração-em-minutos> <custo-por-hora>`.
+- `npm start -- <participantes> <duração-em-minutos> <custo-por-hora>` executa o CLI.
+- `npm test` executa os testes com `node --test`.
+- `npm run lint`, `npm run format` e `npm run typecheck` executam suas verificações específicas.
+- `npm run check` executa lint, typecheck e testes; use-o como verificação local integrada.
 - Exemplo válido: `npm start -- 5 60 80`.
 - Também é válido executar `node src/cli.js` com os mesmos três argumentos.
-- Não documente nem invente comandos que não estejam configurados.
 - Preserve ESM (`"type": "module"`) e as extensões `.js` nas importações locais.
-- Use apenas APIs nativas; não há dependências declaradas de runtime ou desenvolvimento.
-- Só adicione dependências com decisão explícita e atualização coerente do manifesto e instalação.
+- Use APIs nativas no runtime; as dependências declaradas são somente ferramentas de desenvolvimento.
+- Mantenha versões de dependências de desenvolvimento fixadas e sincronizadas com `package-lock.json`.
 
 ## Invariantes E Erros
 
@@ -35,7 +39,7 @@
 - Exija exatamente três argumentos no CLI; caso contrário, mostre uso e use código 1.
 - Converta argumentos com `Number` e preserve mensagens acionáveis mais a forma de uso.
 - Não silencie erros, transforme entrada inválida em zero ou remova validações.
-- Sem testes automatizados, valide manualmente um caso válido e casos inválidos representativos.
+- Mantenha os testes, lint e typecheck passando com `npm run check`.
 
 ## Segurança E Limites Operacionais
 
@@ -44,7 +48,7 @@
 - Não trate argumentos como código nem use avaliação dinâmica; valide-os numericamente no domínio.
 - Não faça commit, tag ou alteração do histórico Git sem solicitação explícita.
 - Não altere `README.md`, `PROJETO.md`, `LICENSE`, `package.json` ou código-fonte em tarefa documental.
-- Não crie rules, skills, hooks, sensors, CI, `.gitignore`, MCP ou testes sem solicitação explícita.
+- Não crie hooks, workflow do Harness Score, MCP, pre-commit, dependências de runtime, deploy ou funcionalidades não relacionadas.
 - Não invente arquivos, serviços, endpoints, comandos, dependências ou requisitos.
 - Preserve alterações preexistentes, evite comandos destrutivos e mantenha o escopo solicitado.
 
@@ -55,6 +59,6 @@
 - [ ] ESM, APIs nativas e dependências reais continuam coerentes.
 - [ ] Sucesso, erros e código de saída continuam claros.
 - [ ] Segurança, ausência de persistência e limites do CLI foram preservados.
-- [ ] A validação disponível foi executada; se inexistente, isso foi registrado.
+- [ ] `npm run check` foi executado com sucesso.
 - [ ] O diff foi revisado e não há alterações acidentais.
 - [ ] Nenhum commit ou tag foi criado pelo agente.

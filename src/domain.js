@@ -1,4 +1,15 @@
-export function calculateMeetingCost(participants, durationMinutes, hourlyCost) {
+/**
+ * @param {number} participants
+ * @param {number} durationMinutes
+ * @param {number} hourlyCost
+ * @returns {number}
+ */
+export function calculateMeetingCost(
+  participants,
+  durationMinutes,
+  hourlyCost,
+) {
+  /** @type {Array<[string, number]>} */
   const inputs = [
     ["Número de participantes", participants],
     ["Duração em minutos", durationMinutes],
@@ -12,7 +23,9 @@ export function calculateMeetingCost(participants, durationMinutes, hourlyCost) 
   }
 
   if (!Number.isSafeInteger(participants) || participants < 1) {
-    throw new RangeError("O número de participantes deve ser um inteiro positivo.");
+    throw new RangeError(
+      "O número de participantes deve ser um inteiro positivo.",
+    );
   }
   if (durationMinutes <= 0) {
     throw new RangeError("A duração deve ser maior que zero minuto.");
@@ -21,9 +34,11 @@ export function calculateMeetingCost(participants, durationMinutes, hourlyCost) 
     throw new RangeError("O custo por hora não pode ser negativo.");
   }
 
-  const totalCost = participants * durationMinutes * hourlyCost / 60;
+  const totalCost = (participants * durationMinutes * hourlyCost) / 60;
   if (!Number.isFinite(totalCost)) {
-    throw new RangeError("O custo calculado excede o limite numérico suportado.");
+    throw new RangeError(
+      "O custo calculado excede o limite numérico suportado.",
+    );
   }
 
   return totalCost;
